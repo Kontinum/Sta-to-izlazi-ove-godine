@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Sta to izlazi ove godine?</title>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="flex flex-col items-center justify-center w-screen space-y-2 mt-2">
+            <div class="flex">
+                <p class="text-blue-400 italic text-lg main-text"></p>
+            </div>
+            <div class="flex flex-col space-y-2 w-full max-w-md">
+                <input type="text" id="publisher" placeholder="Unesi izdavača" class="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <button type="button" id="search" class="px-4 py-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Pretraži
+                </button>
+           </div>
+           <div class="flex flex-col mt-2" id="results"></div>
+           <div class="flex">
+                <p class="text-sm italic text-gray-400" title="Osnovna postavka aplikacije i pretraga sa prikazom naslova">v1.0</p> 
+           </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+<script src="script.js"></script>
+</html>
