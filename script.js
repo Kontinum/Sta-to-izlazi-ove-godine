@@ -13,6 +13,7 @@ const searchButton = document.getElementById('search');
                 const targetUrl = `https://plus.cobiss.net/cobiss/sr/sr/bib/search/advanced?ax&ti&pu=${publisherName}&db=cobib&mat=allmaterials&max=100&pdfrom=01.01.2025&start=${offset}`;
                 const searchData = await fetch(targetUrl, {
                     headers: {
+                        'mode': 'no-cors',
                         'Access-Control-Allow-Origin': '*',
                     }
                 });
