@@ -5,18 +5,14 @@ const searchButton = document.getElementById('search');
         const DomParser = new DOMParser();
         const searchErrorMessage = 'Došlo je do greške prilikom pretrage. Molimo pokušajte ponovo kasnije.'
         const textForMain = `Unesi izdavaca i saznaj sta izlazi ${new Date().getFullYear()} godine :)`;
+        const corsProxy = 'https://api.codetabs.com/v1/proxy?quest=';
         mainText.textContent = textForMain;
 
 
         const searchForData = async (publisherName, offset) => {
             try {
                 const targetUrl = `https://plus.cobiss.net/cobiss/sr/sr/bib/search/advanced?ax&ti&pu=${publisherName}&db=cobib&mat=allmaterials&max=100&pdfrom=01.01.2025&start=${offset}`;
-                const searchData = await fetch(targetUrl, {
-                    headers: {
-                        'mode': 'no-cors',
-                        'Access-Control-Allow-Origin': '*',
-                    }
-                });
+                const searchData = await fetch(corsProxy + encodeURIComponent(targetUrl));
 
                 if (searchData.ok) {
                     return await searchData.text();
