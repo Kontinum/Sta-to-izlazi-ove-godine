@@ -1,9 +1,5 @@
 [[redirects]]
-from = “/*”
-to = “/index.html”
-status = 200
-
-[[headers]]
-for = “/"
-[headers.values]
-Access-Control-Allow-Origin = "”"
+  force = true
+  from = "/script.js"
+  status = 200
+  to = "https://plus.cobiss.net/cobiss/sr/sr/bib/search/advanced"
