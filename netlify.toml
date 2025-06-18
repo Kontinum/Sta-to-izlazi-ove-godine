@@ -1,5 +1,5 @@
 [[redirects]]
   force = true
-  from = "/script.js"
+  from = "script.js"
   status = 200
   to = "https://plus.cobiss.net/cobiss/sr/sr/bib/search/advanced"
