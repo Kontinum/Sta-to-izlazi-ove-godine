@@ -1,5 +1,12 @@
+# The following redirect is intended for use with most SPAs that handle
+# routing internally.
 [[redirects]]
-  force = true
-  from = "script.js"
+  from = "/*"
+  to = "/index.html"
   status = 200
-  to = "https://plus.cobiss.net/cobiss/sr/sr/bib/search/advanced"
+
+[[headers]]
+  # Define which paths this specific [[headers]] block will cover.
+  for = "/*"
+    [headers.values]
+    Access-Control-Allow-Origin = "*"
