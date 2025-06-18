@@ -8,11 +8,25 @@ const searchButton = document.getElementById('search');
         const corsProxy = 'https://api.codetabs.com/v1/proxy?quest=';
         mainText.textContent = textForMain;
 
+        // To avoid Cors proxy issues with URI encoding, we normalize the publisher name.
+        const normalizePublisherName = (publisherName) => {
+            try{
+                publisherName = publisherName.replace(/\s+/g, '+');
+                publisherName = publisherName.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐžŽćĆčČšŠ]/g, c => {
+                    const map = { 'đ': 'd', 'Đ': 'D', 'ž': 'z', 'Ž': 'Z', 'ć': 'c', 'Ć': 'C', 'č': 'c', 'Č': 'C', 'š': 's', 'Š': 'S' };
+                    return map[c] || c;
+                });
+
+                return publisherName;
+            } catch (error) {
+                throw new Error(searchErrorMessage);
+            }
+        }
 
         const searchForData = async (publisherName, offset) => {
             try {
-                publisherName = publisherName.replace(/\s+/g, '+');
-                const targetUrl = `https://plus.cobiss.net/cobiss/sr/sr/bib/search/advanced?ax&ti&pu=${publisherName}&db=cobib&mat=allmaterials&max=100&pdfrom=01.01.2025&start=${offset}`;
+                const publisher = normalizePublisherName(publisherName);
+                const targetUrl = `https://plus.cobiss.net/cobiss/sr/sr/bib/search/advanced?ax&ti&pu=${publisher}&db=cobib&mat=allmaterials&max=100&pdfrom=01.01.2025&start=${offset}`;
                 const searchData = await fetch(corsProxy + encodeURIComponent(targetUrl));
                 if (searchData.ok) {
                     return await searchData.text();
@@ -77,7 +91,6 @@ const searchButton = document.getElementById('search');
                 alert(error.message);
             }
         }
-
 
         searchButton.addEventListener('click', search);
         publisher.addEventListener('keypress', (e) => {
