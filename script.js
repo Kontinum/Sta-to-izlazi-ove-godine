@@ -14,6 +14,10 @@ const textForMain = `Unesi izdavaca i saznaj sta izlazi ${new Date().getFullYear
 const corsProxy = 'https://api.codetabs.com/v1/proxy?quest=';
 mainText.textContent = textForMain;
 
+window.addEventListener('DOMContentLoaded', () => {
+    populatePublishersList(publishers);
+});
+
 // To avoid Cors proxy issues with URI encoding, we normalize the publisher name.
 const normalizePublisherName = (publisherName) => {
     try {
@@ -132,29 +136,36 @@ const searchPublishers = (e) => {
             return publisher.toLowerCase().includes(searchValue.toLowerCase());
         })
 
-        searchPublishers.forEach((publisher) => {
-            const option = document.createElement('option');
-            option.value = publisher;
-            publishersList.appendChild(option);
-        })
-        
-
+        populatePublishersList(searchPublishers);
     } else {
         publishersList.innerHTML = '';
+        populatePublishersList(publishers);
     }
 }
 
-publisher.addEventListener('change', () => {
-    publishersList.innerHTML = '';
+const populatePublishersList = (publishers) => {
+    publishers.forEach((publisher) => {
+        const option = document.createElement('option');
+        option.value = publisher;
+        publishersList.appendChild(option);
+    });
+}
+
+publisher.addEventListener('change', (e) => {
+    if(e.target.value.length > 0) {
+        publishersList.innerHTML = '';
+    }
 });
 publisher.addEventListener('input', searchPublishers)
 searchButton.addEventListener('click', (e) => {
     resultsCount = 0; // Reset results count on new search
     search(e);
+    populatePublishersList(publishers); // Reset publishers list
 });
 publisher.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         resultsCount = 0; // Reset results count on new search
         search(e);
+        populatePublishersList(publishers); // Reset publishers list
     }
 });
