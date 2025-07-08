@@ -144,6 +144,9 @@ const searchPublishers = (e) => {
     }
 }
 
+publisher.addEventListener('change', () => {
+    publishersList.innerHTML = '';
+});
 publisher.addEventListener('input', searchPublishers)
 searchButton.addEventListener('click', (e) => {
     resultsCount = 0; // Reset results count on new search
