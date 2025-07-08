@@ -14,19 +14,22 @@
                 <p class="text-blue-400 italic text-lg main-text"></p>
             </div>
             <div class="flex flex-col space-y-2 w-full max-w-md">
-                <input type="text" id="publisher" placeholder="Unesi izdavača latiničnim slovima" class="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <input type="text" id="publisher" list="publishersList" placeholder="Unesi izdavača latiničnim slovima" class="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <datalist id="publishersList" class="w-auto"></datalist>
                 <button type="button" id="search" class="px-4 py-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                     Pretraži
                 </button>
            </div>
-           <div class="flex flex-col mt-2" id="results"></div>
+           <div class="flex flex-col w-full max-w-md items-center italic text-sm text-gray-500 mt-1"><span class="resultsCount hidden"><span class="resultsCountNum inline-flex">230</span> rezultata.</span></div>
+           <div class="flex flex-col" id="results"></div>
            <div class="flex">
-                <p class="text-sm italic text-gray-400" title="Osnovna postavka aplikacije i pretraga sa prikazom naslova">v1.0</p> 
+                <!-- <p class="text-sm italic text-gray-400" title="Osnovna postavka aplikacije i pretraga sa prikazom naslova">v1.0</p>  -->
+                <p class="text-sm italic text-gray-400" title="Dodata pretraga izdavaca i prikaz broja rezultata pretrage">v1.1</p> 
            </div>
         </div>
     </div>
     </div>
 </body>
 
-<script type='text/javascript' src="script.js"></script>
+<script type='module' src="script.js"></script>
 </html>
