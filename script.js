@@ -99,6 +99,7 @@ const showResults = (searchBody) => {
 
 const search = async (e, currentOffset = 0) => {
     try {
+        publishersLatin.innerHTML = '';
         if (publisher.value.length > 0) {
             if (currentOffset === 0) {
                 results.innerHTML = '';
@@ -144,28 +145,31 @@ const searchPublishers = (e) => {
 }
 
 const populatePublishersList = (publishers) => {
-    publishers.forEach((publisher) => {
-        const option = document.createElement('option');
-        option.value = publisher;
-        publishersList.appendChild(option);
+    publishers.forEach((publisherName) => {
+        const span = document.createElement('span');
+        span.className = 'border-1 border-blue-200 p-1 cursor-pointer hover:bg-blue-100';
+        span.textContent = publisherName;
+        span.addEventListener('click', (e) => {
+            publisher.value = e.target.textContent; // Set the input value to the clicked publisher
+        });
+        publishersList.appendChild(span);
     });
 }
 
+const resetAndRunSearch = (e) => {
+    resultsCount = 0; // Reset results count on new search
+    search(e);
+}
+
 publisher.addEventListener('change', (e) => {
-    if(e.target.value.length > 0) {
-        publishersList.innerHTML = '';
-    }
+    //search(e); // Reset results count on new search
 });
 publisher.addEventListener('input', searchPublishers)
 searchButton.addEventListener('click', (e) => {
-    resultsCount = 0; // Reset results count on new search
-    search(e);
-    populatePublishersList(publishers); // Reset publishers list
+    resetAndRunSearch(e);
 });
 publisher.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
-        resultsCount = 0; // Reset results count on new search
-        search(e);
-        populatePublishersList(publishers); // Reset publishers list
+        resetAndRunSearch(e);
     }
 });

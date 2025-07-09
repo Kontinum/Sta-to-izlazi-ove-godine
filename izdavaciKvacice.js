@@ -101,6 +101,7 @@ export const publishersLatin = [
   "Globosino",
   "GNB Žarko Zrenjanin",
   "Gnosis Lux",
+  "Golconda",
   "Gold Ochrid",
   "Gradska biblioteka Karlo Bijelicki",
   "Građevinska knjiga",
@@ -172,7 +173,7 @@ export const publishersLatin = [
   "Marija Ajković pr LOVERS.RS",
   "Mascom/Booking",
   "Mate d.o.o",
-  "MAVERICK",
+  "Maverik",
   "MCB Edukacija",
   "McMillan",
   "Međunarodno udruženje „Stil“",
@@ -291,7 +292,5 @@ export const publishersLatin = [
   "Zenit books",
   "ZENIT-inženjering",
   "Zepter Book World",
-  "Zlatno runo",
-  // Naknadno dodati izdavači
-  "Golconda",
+  "Zlatno runo"
 ];
