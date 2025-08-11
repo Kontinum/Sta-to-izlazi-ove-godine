@@ -182,6 +182,7 @@ const populatePublishersList = (publishers) => {
 
 const resetAndRunSearch = (e) => {
     resultsCount = 0; // Reset results count on new search
+    searchResults.value = ''; // Clear search results input
     search(e);
 }
 
