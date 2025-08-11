@@ -12,7 +12,24 @@ const DomParser = new DOMParser();
 const searchErrorMessage = 'Došlo je do greške prilikom pretrage. Molimo pokušajte ponovo kasnije.'
 const textForMain = `Unesi izdavaca i saznaj sta izlazi ${new Date().getFullYear()} godine :)`;
 const corsProxy = 'https://api.codetabs.com/v1/proxy?quest=';
+const cobbisUrl = 'https://plus.cobiss.net/cobiss/sr/sr';
+const searchResults = document.getElementById('searchResults');
 mainText.textContent = textForMain;
+
+// Search through results
+searchResults.addEventListener('input', (e) => {
+    const searchValue = e.target.value.toLowerCase();
+    const resultElements = results.querySelectorAll('a');
+    
+    resultElements.forEach(element => {
+        const title = element.textContent.toLowerCase();
+        if (title.includes(searchValue)) {
+            element.style.display = '';
+        } else {
+            element.style.display = 'none';
+        }
+    });
+});
 
 window.addEventListener('DOMContentLoaded', () => {
     populatePublishersList(publishers);
@@ -48,7 +65,7 @@ let resultsCount = 0;
 const searchForData = async (publisherName, offset) => {
     try {
         const publisher = normalizePublisherName(publisherName);
-        const targetUrl = `https://plus.cobiss.net/cobiss/sr/sr/bib/search/advanced?ax&ti&pu=${publisher}&db=cobib&mat=allmaterials&max=100&pdfrom=01.01.2025&start=${offset}`;
+        const targetUrl = `${cobbisUrl}/bib/search/advanced?ax&ti&pu=${publisher}&db=cobib&mat=allmaterials&max=100&pdfrom=01.01.2025&start=${offset}`;
         const searchData = await fetch(corsProxy + encodeURIComponent(targetUrl));
         
         if (searchData.ok) {
@@ -65,6 +82,7 @@ const searchForData = async (publisherName, offset) => {
 const parseResultsBody = (searchData) => {
     try {
         const doc = DomParser.parseFromString(searchData, 'text/html');
+        console.log(doc);
 
         return doc.getElementById('resultBodyList');
     }
@@ -83,13 +101,18 @@ const showResults = (searchBody) => {
         for (const result of searchBody.children) {
             resultsCount++;
             displayResultsCount();
+
             
-            
+            const resultHref =  `${cobbisUrl}/${result.dataset.href}`;            
             const title = result.dataset.title;
             const titleDiv = document.createElement('div');
-            titleDiv.className = 'flex w-full p-3 mb-2 bg-white border border-gray-200 rounded-md shadow-sm hover:bg-gray-50';
-            titleDiv.textContent = title;
-            results.insertAdjacentHTML('beforeend', titleDiv.outerHTML);
+            titleDiv.className = 'flex w-full p-3 mb-2 bg-white border border-gray-200 rounded-md shadow-sm hover:bg-gray-50 hover:underline';
+            titleDiv.textContent = title + ' ↗';
+            const link = document.createElement('a');
+            link.href = resultHref;
+            link.target = '_blank';
+            link.appendChild(titleDiv);            
+            results.insertAdjacentHTML('beforeend', link.outerHTML);
         }
     }
     catch (error) {
@@ -106,13 +129,14 @@ const search = async (e, currentOffset = 0) => {
             }
 
             const searchData = await searchForData(publisher.value, currentOffset);
-            const searchBody = parseResultsBody(searchData);
+            const searchBody = parseResultsBody(searchData);            
 
             if (searchBody.children.length === 0 && currentOffset === 0) {
                 resultsCountEl.classList.add('hidden');
                 alert('Nema rezultata za traženog izdavača.');
                 return;
             } else if (searchBody.children.length > 0) {
+                searchResults.classList.remove('hidden');
                 showResults(searchBody);
                 // Recursively call if there are still results
                 await search(e, currentOffset + 100);

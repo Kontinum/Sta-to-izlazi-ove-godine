@@ -292,5 +292,10 @@ export const publishers = [
   "Zenit books",
   "ZENIT-inzenjering",
   "Zepter Book World",
-  "Zlatno runo" 
+  "Zlatno runo",
+  "Color Media",
+  "Mipl",
+  "Najkula",
+  "Stalker",
+  "System Comics"
 ];
