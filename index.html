@@ -14,7 +14,36 @@
                 <p class="text-blue-400 italic text-lg main-text"></p>
             </div>
             <div class="flex flex-col space-y-2 w-full max-w-md">
-                <input type="text" id="publisher" list="publishersList" placeholder="Unesi izdavača latiničnim slovima" class="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <div
+                    class="p-1 flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-blue-600">
+                    <input id="publisher" type="text" name="price" placeholder="Unesi izdavača latiničnim slovima"
+                        class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" />
+                    <div class="grid shrink-0 grid-cols-1 focus-within:relative">
+                        <select id="year" name="year" aria-label="Year"
+                            class="col-start-1 row-start-1 w-full appearance-none rounded-md py-1.5 pr-7 pl-3 text-base text-gray-500 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 sm:text-sm/6">
+                            
+                        </select>
+                        <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true"
+                            class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
+                            <path
+                                d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                                clip-rule="evenodd" fill-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="grid shrink-0 grid-cols-1 focus-within:relative">
+                        <select id="type" name="type" aria-label="Type"
+                            class="col-start-1 row-start-1 w-full appearance-none rounded-md py-1.5 pr-7 pl-3 text-base text-gray-500 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 sm:text-sm/6">
+                            <option value="">Sve</option>
+                            <option value="x1">Strip</option>
+                        </select>
+                        <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true"
+                            class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
+                            <path
+                                d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                                clip-rule="evenodd" fill-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
                 <div id="publishersList" class="flex flex-col w-full max-w-md max-h-48 space-y-1 overflow-auto"></div>
                 <button type="button" id="search" class="px-4 py-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                     Pretraži
@@ -30,7 +59,8 @@
            <div class="flex">
                 <!-- <p class="text-sm italic text-gray-400" title="Osnovna postavka aplikacije i pretraga sa prikazom naslova">v1.0</p>  -->
                 <!-- <p class="text-sm italic text-gray-400" title="Dodata pretraga izdavaca i prikaz broja rezultata pretrage">v1.1</p>  -->
-                <p class="text-sm italic text-gray-400" title="Dodata pretraga pronadjenih rezultata">v1.2</p> 
+                <!-- <p class="text-sm italic text-gray-400" title="Dodata pretraga pronadjenih rezultata">v1.2</p>  -->
+                <p class="text-sm italic text-gray-400" title="Dodati padajući meniji za tri godine i vrstu građe(Sve i Strip)">v1.3</p> 
            </div>
         </div>
     </div>

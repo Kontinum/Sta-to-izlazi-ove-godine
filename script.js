@@ -14,7 +14,22 @@ const textForMain = `Unesi izdavaca i saznaj sta izlazi ${new Date().getFullYear
 const corsProxy = 'https://api.codetabs.com/v1/proxy?quest=';
 const cobbisUrl = 'https://plus.cobiss.net/cobiss/sr/sr';
 const searchResults = document.getElementById('searchResults');
+const year = document.getElementById('year');
+const type = document.getElementById('type');
+let pdFrom = '01.01.2025'; // Default value for pdfrom
+let pdTo = '31.12.2025'; // Default value for pdto
+let typeCC = '';
 mainText.textContent = textForMain;
+
+year.addEventListener('change', (e) => {
+    const selectedYear = e.target.value;
+    pdFrom = `01.01.${selectedYear}`;
+    pdTo = `31.12.${selectedYear}`;
+})
+
+type.addEventListener('change', (e) => {
+    typeCC = e.target.value;
+})
 
 // Search through results
 searchResults.addEventListener('input', (e) => {
@@ -31,8 +46,26 @@ searchResults.addEventListener('input', (e) => {
     });
 });
 
+const getCurrentAndLastTwoYears = () => {
+    const currentYear = new Date().getFullYear();
+    const lastTwoYears = [currentYear - 1, currentYear - 2];
+    const years = [currentYear, ...lastTwoYears].sort((a, b) => b - a);
+    return years;
+}
+
+const populateYearOptions = () => {
+    const years = getCurrentAndLastTwoYears();
+    years.forEach(yearVal => {
+        const option = document.createElement('option');
+        option.value = yearVal;
+        option.textContent = yearVal;
+        year.appendChild(option);
+    });
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     populatePublishersList(publishers);
+    populateYearOptions();
 });
 
 // To avoid Cors proxy issues with URI encoding, we normalize the publisher name.
@@ -65,7 +98,7 @@ let resultsCount = 0;
 const searchForData = async (publisherName, offset) => {
     try {
         const publisher = normalizePublisherName(publisherName);
-        const targetUrl = `${cobbisUrl}/bib/search/advanced?ax&ti&pu=${publisher}&db=cobib&mat=allmaterials&max=100&pdfrom=01.01.2025&start=${offset}`;
+        const targetUrl = `${cobbisUrl}/bib/search/advanced?ax&ti&pu=${publisher}&db=cobib&mat=allmaterials&max=100&sort=ti&cc=${typeCC}&pdfrom=${pdFrom}&pdto=${pdTo}&start=${offset}`;
         const searchData = await fetch(corsProxy + encodeURIComponent(targetUrl));
         
         if (searchData.ok) {
