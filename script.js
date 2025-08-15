@@ -14,6 +14,7 @@ const DomParser = new DOMParser();
 const searchResults = document.getElementById('searchResults');
 const year = document.getElementById('year');
 const type = document.getElementById('type');
+const spinner = document.querySelector('.spinner');
 let pdFrom = '01.01.2025'; // Default value for pdfrom
 let pdTo = '31.12.2025'; // Default value for pdto
 let typeCC = '';
@@ -82,6 +83,7 @@ const search = async (e, currentOffset = 0) => {
     try {
         publishersLatin.innerHTML = '';
         if (publisher.value.length > 0) {
+            spinner.classList.remove('hidden'); // Show spinner while fetching data
             if (currentOffset === 0) {
                 results.innerHTML = '';
             }
@@ -97,8 +99,10 @@ const search = async (e, currentOffset = 0) => {
                 searchResults.classList.remove('hidden');
                 showResults(searchBody);
                 // Recursively call if there are still results
+
                 await search(e, currentOffset + 100);
             }
+            spinner.classList.add('hidden'); // Hide spinner after fetching data
         } else {
             alert('Molimo unesite ime izdavača.');
         }
