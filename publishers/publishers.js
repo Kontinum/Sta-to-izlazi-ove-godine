@@ -160,6 +160,7 @@ export const publishers = [
   "Libretto",
   "Lingea",
   "Logopraktika",
+  "Lokomotiva",
   "LOM",
   "Lom/Knjizevna radionica Rasic",
   "LUKA BOOKS",
